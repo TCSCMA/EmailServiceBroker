@@ -11,20 +11,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.cloud.email.servicebroker.service.BaseService;
+import com.cloud.email.servicebroker.model.EmailInstance;
+import com.cloud.email.servicebroker.repository.EmailInstanceRepository;
 
 /**
- * @author Chandrakant Bagade
- *
- *         This class acts as REST resource for search functionality. Class will
- *         help adding documents for indexing , searching and deleting
+ *         This class acts as REST resource for email functionality. 
  */
 @RestController
 public class EmailServiceController {
 
-	// autowiring of search related services
+	
 	@Autowired
-	BaseService emailService;
+	private EmailInstanceRepository repository;
 
 	/**
 	 * add new content
@@ -52,16 +50,14 @@ public class EmailServiceController {
 			return new ResponseEntity<>("No content is passed to store",
 					HttpStatus.BAD_REQUEST);
 		}
-
-		try {
-
-			emailService.sendEmail(instanceId, content);
-
-		} catch (IOException e) {
-			e.printStackTrace();
+		EmailInstance instance = repository.findOne(instanceId);
+		if (null==instance) {
 			return new ResponseEntity<>(
-					"There is problem with content update.",
+					"Instance not created",
 					HttpStatus.INTERNAL_SERVER_ERROR);
+			}
+		else {
+			instance.sendMail(content);
 		}
 		System.out.println(methodInfo + " , returning ");
 		return new ResponseEntity<>("The email is sent", HttpStatus.ACCEPTED);

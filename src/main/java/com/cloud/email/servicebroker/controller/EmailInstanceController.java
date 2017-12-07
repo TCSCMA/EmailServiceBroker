@@ -17,7 +17,6 @@ import org.springframework.stereotype.Service;
 
 import com.cloud.email.servicebroker.model.EmailInstance;
 import com.cloud.email.servicebroker.repository.EmailInstanceRepository;
-import com.cloud.email.servicebroker.service.BaseService;
 
 /**
  *         This class lists method to create , delete service instance. The
@@ -30,15 +29,10 @@ import com.cloud.email.servicebroker.service.BaseService;
 public class EmailInstanceController implements ServiceInstanceService {
 
 	@Autowired
-	private BaseService baseService;
-
-	@Autowired
 	private EmailInstanceRepository repository;
 
 	@Autowired
-	public EmailInstanceController(BaseService baseService,
-			EmailInstanceRepository repository) {
-		this.baseService = baseService;
+	public EmailInstanceController(EmailInstanceRepository repository) {		
 		this.repository = repository;
 	}
 
@@ -72,12 +66,6 @@ public class EmailInstanceController implements ServiceInstanceService {
 		System.out
 				.println("createServiceInstance() :: service instance created "
 						+ instance);
-
-		/*try {
-			baseService.createSearchEntity(instance.getServiceInstanceId());
-		} catch (IOException e) {
-			e.printStackTrace();
-		}*/
 
 		System.out
 				.println("createServiceInstance() :: email service instance created");

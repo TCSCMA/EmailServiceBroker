@@ -21,6 +21,7 @@ public class EmailInstance {
 	private String planId;
 	private String organizationGuid;
 	private String spaceGuid;
+	
 
 	@SuppressWarnings("unused")
 	private EmailInstance() {
@@ -88,6 +89,10 @@ public class EmailInstance {
 
 	public EmailInstance and() {
 		return this;
+	}
+	
+	public void sendMail(String content) {
+		System.out.println("Send Mail --- from instance "+id+" content is "+content);
 	}
 
 	@Override
