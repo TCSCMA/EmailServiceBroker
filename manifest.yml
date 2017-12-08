@@ -1,0 +1,6 @@
+---
+applications:
+- name: email-service-broker
+  memory: 768M
+  path: build/libs/email-service-broker.jar
+  buildpack: java_buildpack
