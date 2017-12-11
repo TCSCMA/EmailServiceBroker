@@ -41,22 +41,23 @@ public class EmailCatalogController {
 						"A email service broker implementation", true, false,
 						Collections.singletonList(new Plan("email-plan",
 								"basic", "This is a free basic plan.",
-								getPlanMetadata())), Arrays.asList("email",
+								getPlanMetadata(),true,true)), Arrays.asList("email",
 								"document"), getMetadata(), null, null)));
 	}
 
 	private Map<String, Object> getMetadata() {
 		Map<String, Object> sdMetadata = new HashMap<>();
 		sdMetadata.put("displayName", "Email Service");
-
 		sdMetadata.put("longDescription",
 				"A Email Service");
+		sdMetadata.put("imageUrl", "https://cdn3.activedemand.com/wp-content/uploads/Email-Broker.png");
 		return sdMetadata;
 	}
 
 	private Map<String, Object> getPlanMetadata() {
 		Map<String, Object> planMetadata = new HashMap<>();
-		planMetadata.put("costs", getCosts());
+		//planMetadata.put("costs", getCosts());
+		planMetadata.put("costs", Collections.singletonMap("free", true));
 		return planMetadata;
 	}
 
